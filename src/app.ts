@@ -1,18 +1,15 @@
-import dotenv from 'dotenv'
 import express from 'express'
-import { userRouter } from './api/routes';
+import dotenv from 'dotenv'
+import { userRouter } from './api/users'
 
 dotenv.config();
 
-export const startServer = (port: number) => {
-  const app = express();
+const app = express();
+const port = process.env.PORT || 3000;
 
-  app.use(express.json());
-  app.use('/api/routes', userRouter);
+app.use(express.json());
+app.use('/api', userRouter);
 
-  express().use(express.json());
-  express().use((req, res) => {
-    res.status(404).json({ message: 'Not Found' });
-  });
-  express().listen(port, () => console.log(`Server work: http://localhost:${port}`));
-}
+app.listen(port, () => {
+  console.log(`Server work: http://localhost:${port}`);
+})
