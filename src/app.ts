@@ -8,7 +8,7 @@ export const startServer = (port: number) => {
   const app = express();
 
   app.use(express.json());
-  app.use('/routes', userRouter);
+  app.use('/api/routes', userRouter);
 
   express().use(express.json());
   express().use((req, res) => {
