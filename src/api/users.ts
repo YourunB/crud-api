@@ -20,10 +20,10 @@ router.get('/users/', (req: Request, res: Response) => {
 
 router.get('/users/:userId', (req: any, res: any) => {
   const { userId } = req.params;
-  const foundUser = users.find(user => user.id === userId);
+  if (!uuidRegex.test(userId)) return res.status(400).json({ message: 'not uuid' });
 
-  if (uuidRegex) return res.status(400).json({ message: 'not uuid' });
-  if (!foundUser) return res.status(404).json({ message: `doesn't exist` });
+  const foundUser = users.find(user => user.id === userId);
+  if (!foundUser) return res.status(404).json({ message: `doesn't exist` })
 
   res.status(200).json(foundUser);
 });
