@@ -10,9 +10,9 @@ describe('api', () => {
       .send({
         username: 'testuser',
         age: 25,
-        hobbies: ['reading', 'gaming']
+        hobbies: ['reading', 'gaming'],
       });
-    
+
     expect(route.status).toBe(201);
     expect(route.body).toHaveProperty('id');
     id = route.body.id;
@@ -20,14 +20,14 @@ describe('api', () => {
 
   it('get users', async () => {
     const route = await request(app).get('/api/users');
-    
+
     expect(route.status).toBe(200);
     expect(route.body.length).toBeGreaterThan(0);
   });
 
   it('get user by id', async () => {
     const route = await request(app).get(`/api/users/${id}`);
-    
+
     expect(route.status).toBe(200);
     expect(route.body).toHaveProperty('username', 'testuser');
   });
@@ -38,9 +38,9 @@ describe('api', () => {
       .send({
         username: 'updateduser',
         age: 30,
-        hobbies: ['sports']
+        hobbies: ['sports'],
       });
-    
+
     expect(route.status).toBe(200);
     expect(route.body).toHaveProperty('username', 'updateduser');
   });
