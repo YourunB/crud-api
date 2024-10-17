@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import { v4 as uuidv4 } from 'uuid';
 
 const router = express.Router();
 
@@ -46,5 +47,25 @@ router.put('/:userId', (req: any,res: any) => {
 
   res.status(200).json(users[i]);
 });
+
+router.post('/users', (req: any, res: any) => {
+  const {
+    username,
+    age,
+    hobbies
+  } = req.body;
+
+  if (!age || !username || !Array.isArray(hobbies)) return res.status(400).json({ message: 'body does not contain required fields' });
+
+  const newUser: User = {
+    id: uuidv4(),
+    username,
+    age,
+    hobbies,
+  };
+
+  users.push(newUser);
+  res.status(201).json(newUser);
+})
 
 export const userRouter = router;
