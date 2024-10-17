@@ -14,11 +14,11 @@ let users: User[] = [];
 
 const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
-router.get('/', (req: Request, res: Response) => {
+router.get('/users/', (req: Request, res: Response) => {
   res.status(200).json(users);
 });
 
-router.get('/:userId', (req: any, res: any) => {
+router.get('/users/:userId', (req: any, res: any) => {
   const { userId } = req.params;
   const foundUser = users.find(user => user.id === userId);
 
@@ -28,7 +28,7 @@ router.get('/:userId', (req: any, res: any) => {
   res.status(200).json(foundUser);
 });
 
-router.put('/:userId', (req: any,res: any) => {
+router.put('/users/:userId', (req: any,res: any) => {
   const {
     userId
   } = req.params;
@@ -48,7 +48,7 @@ router.put('/:userId', (req: any,res: any) => {
   res.status(200).json(users[i]);
 });
 
-router.post('/users', (req: any, res: any) => {
+router.post('/users/', (req: any, res: any) => {
   const {
     username,
     age,
