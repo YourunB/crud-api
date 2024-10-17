@@ -22,17 +22,15 @@ router.get('/users/:userId', (req: any, res: any) => {
   const { userId } = req.params;
   if (!uuidRegex.test(userId)) return res.status(400).json({ message: 'not uuid' });
 
-  const foundUser = users.find(user => user.id === userId);
-  if (!foundUser) return res.status(404).json({ message: `doesn't exist` })
+  const foundUser = users.find((user) => user.id === userId);
+  if (!foundUser) return res.status(404).json({ message: `doesn't exist` });
 
   res.status(200).json(foundUser);
 });
 
-router.put('/users/:userId', (req: any,res: any) => {
-  const {
-    userId
-  } = req.params;
-  const i = users.findIndex(user => user.id === userId);
+router.put('/users/:userId', (req: any, res: any) => {
+  const { userId } = req.params;
+  const i = users.findIndex((user) => user.id === userId);
 
   if (!uuidRegex.test(userId)) return res.status(400).json({ message: 'not uuid' });
   if (i === -1) return res.status(404).json({ message: `doesn't exist` });
@@ -49,13 +47,10 @@ router.put('/users/:userId', (req: any,res: any) => {
 });
 
 router.post('/users/', (req: any, res: any) => {
-  const {
-    username,
-    age,
-    hobbies
-  } = req.body;
+  const { username, age, hobbies } = req.body;
 
-  if (!age || !username || !Array.isArray(hobbies)) return res.status(400).json({ message: 'body does not contain required fields' });
+  if (!age || !username || !Array.isArray(hobbies))
+    return res.status(400).json({ message: 'body does not contain required fields' });
 
   const newUser: User = {
     id: uuidv4(),
@@ -66,18 +61,17 @@ router.post('/users/', (req: any, res: any) => {
 
   users.push(newUser);
   res.status(201).json(newUser);
-})
+});
 
 router.delete('/users/:userId', (req: any, res: any) => {
   const { userId } = req.params;
   if (!uuidRegex.test(userId)) return res.status(400).json({ message: 'not uuid' });
 
-  const i = users.findIndex(user => user.id === userId);
-  if (i === -1) return res.status(404).json({ message: `doesn't exist` })
+  const i = users.findIndex((user) => user.id === userId);
+  if (i === -1) return res.status(404).json({ message: `doesn't exist` });
 
   users.splice(i, 1);
   res.status(204).send();
 });
-
 
 export const userRouter = router;

@@ -1,6 +1,6 @@
-import express from 'express'
-import dotenv from 'dotenv'
-import { userRouter } from './api/users'
+import express from 'express';
+import dotenv from 'dotenv';
+import { userRouter } from './api/users';
 
 dotenv.config();
 
@@ -12,4 +12,4 @@ app.use('/api', userRouter);
 
 app.listen(port, () => {
   console.log(`Server work: http://localhost:${port}`);
-})
+});
