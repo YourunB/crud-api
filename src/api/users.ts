@@ -68,4 +68,16 @@ router.post('/users/', (req: any, res: any) => {
   res.status(201).json(newUser);
 })
 
+router.delete('/users/:userId', (req: any, res: any) => {
+  const { userId } = req.params;
+  if (!uuidRegex.test(userId)) return res.status(400).json({ message: 'not uuid' });
+
+  const i = users.findIndex(user => user.id === userId);
+  if (i === -1) return res.status(404).json({ message: `doesn't exist` })
+
+  users.splice(i, 1);
+  res.status(204).send();
+});
+
+
 export const userRouter = router;
